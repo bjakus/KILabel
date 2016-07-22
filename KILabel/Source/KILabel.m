@@ -296,11 +296,16 @@ NSString * const KILabelLinkKey = @"link";
         attributedString = [KILabel sanitizeAttributedString:attributedString];
     }
     
-    self.linkRanges = nil;
     if (self.isAutomaticLinkDetectionEnabled && (attributedString.length != 0))
     {
         self.linkRanges = [self getRangesForLinks:attributedString];
         attributedString = [self addLinkAttributesToAttributedString:attributedString linkRanges:self.linkRanges];
+    }
+    else if (self.isAutomaticLinkDetectionEnabled == NO && self.linkRanges.count > 0) {
+        // Do nothing
+    }
+    else {
+        self.linkRanges = nil;
     }
     
     if (_textStorage)
