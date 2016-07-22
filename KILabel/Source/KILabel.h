@@ -123,6 +123,10 @@ IB_DESIGNABLE
  */
 @property (nullable, nonatomic, strong) NSSet *ignoredKeywords;
 
+// Dictionary of detected links and their ranges in the text
+@property (nonatomic, copy) NSArray *linkRanges;
+
+
 /** ****************************************************************************************** **
  * @name Format & Appearance
  ** ****************************************************************************************** **/
