@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "KILabel"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "Replacement for UILabel for iOS 7 and 8 that provides automatic detection of links such as URLs, twitter style usernames and hashtags."
 
   s.description  = <<-DESC
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
                    KILabel is an alternative to UILabel that provides automatic link detection and hilighting for URLs, twitter handles and hashtags. It also detects taps on links and allows you to respond via blocks. It is intended for use in Socal Networking apps like twitter clients but might be useful anywhere you require some extra formatting for text but don't want the overhead of using a text field.
                    DESC
 
-  s.homepage     = "https://github.com/GE-N/KILabel"
+  s.homepage     = "https://github.com/aikongK/KILabel"
   s.screenshots  = "https://raw.githubusercontent.com/Krelborn/KILabel/master/IKLabelDemoScreenshot.png"
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "https://github.com/GE-N/KILabel.git", :tag => "1.0.2" }
+  s.source       = { :git => "https://github.com/aikongK/KILabel.git", :tag => "1.0.3" }
 
   s.source_files  = "KILabel/Source/**/*.{h,m}"
   public_header_files = "KILabel/Source/**/*.h"
