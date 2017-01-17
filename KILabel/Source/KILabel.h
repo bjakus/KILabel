@@ -32,20 +32,25 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef NS_ENUM(NSUInteger, KILinkType)
 {
-  /**
-   *  Usernames starting with "@" token
-   */
-  KILinkTypeUserHandle,
+    /**
+     *  Usernames starting with "@" token
+     */
+    KILinkTypeUserHandle,
+    
+    /**
+     *  Hashtags starting with "#" token
+     */
+    KILinkTypeHashtag,
+    
+    /**
+     *  URLs, http etc
+     */
+    KILinkTypeURL,
   
-  /**
-   *  Hashtags starting with "#" token
-   */
-  KILinkTypeHashtag,
-  
-  /**
-   *  URLs, http etc
-   */
-  KILinkTypeURL,
+//    /**
+//     *  Email
+//     */
+//    KILinkTypeEmail,
 };
 
 /**
@@ -53,30 +58,35 @@ typedef NS_ENUM(NSUInteger, KILinkType)
  */
 typedef NS_OPTIONS(NSUInteger, KILinkTypeOption)
 {
-  /**
-   *  No links
-   */
-  KILinkTypeOptionNone = 0,
+    /**
+     *  No links
+     */
+    KILinkTypeOptionNone = 0,
+    
+    /**
+     *  Specifies to include KILinkTypeUserHandle links
+     */
+    KILinkTypeOptionUserHandle = 1 << KILinkTypeUserHandle,
+    
+    /**
+     *  Specifies to include KILinkTypeHashtag links
+     */
+    KILinkTypeOptionHashtag = 1 << KILinkTypeHashtag,
+    
+    /**
+     *  Specifies to include KILinkTypeURL links
+     */
+    KILinkTypeOptionURL = 1 << KILinkTypeURL,
   
-  /**
-   *  Specifies to include KILinkTypeUserHandle links
-   */
-  KILinkTypeOptionUserHandle = 1 << KILinkTypeUserHandle,
+//    /**
+//     *  Specifies to include KILinkTypeEmail
+//     */
+//    KILinkTypeOptionEmail = 1 << KILinkTypeEmail,
   
-  /**
-   *  Specifies to include KILinkTypeHashtag links
-   */
-  KILinkTypeOptionHashtag = 1 << KILinkTypeHashtag,
-  
-  /**
-   *  Specifies to include KILinkTypeURL links
-   */
-  KILinkTypeOptionURL = 1 << KILinkTypeURL,
-  
-  /**
-   *  Convenience contstant to include all link types
-   */
-  KILinkTypeOptionAll = NSUIntegerMax,
+    /**
+     *  Convenience contstant to include all link types
+     */
+    KILinkTypeOptionAll = NSUIntegerMax,
 };
 
 
