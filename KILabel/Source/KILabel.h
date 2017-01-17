@@ -100,6 +100,7 @@ typedef NS_OPTIONS(NSUInteger, KILinkTypeOption)
  *  @param range  The range of the string within the label's text
  */
 typedef void (^KILinkTapHandler)(KILabel *label, NSString *string, NSRange range);
+typedef void (^KITapHandler)(KILabel *label, NSString *string);
 
 extern NSString * const KILabelLinkTypeKey;
 extern NSString * const KILabelRangeKey;
@@ -135,6 +136,8 @@ IB_DESIGNABLE
 
 // Dictionary of detected links and their ranges in the text
 @property (nonatomic, copy) NSArray *linkRanges;
+
+@property (nonatomic, assign, getter = isLabelTapEnabled) IBInspectable BOOL labelTapEnabled;
 
 
 /** ****************************************************************************************** **
@@ -189,6 +192,12 @@ IB_DESIGNABLE
  * Callback block for KILinkTypeURL link tap.
  */
 @property (nullable, nonatomic, copy) KILinkTapHandler urlLinkTapHandler;
+
+/**
+ * Callback block for Label tap.
+ */
+@property (nullable, nonatomic, copy) KITapHandler labelTapHandler;
+
 
 /** ****************************************************************************************** **
  * @name Geometry
