@@ -460,17 +460,17 @@ NSString * const KILabelLinkKey = @"link";
 - (NSArray *)getRangesForURLs:(NSAttributedString *)text
 {
     NSMutableArray *rangesForURLs = [[NSMutableArray alloc] init];;
-    
-    // Use a data detector to find urls in the text
+  
+    // URL Pattern
     NSError *error = nil;
-    NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeLink error:&error];
-    
+    NSString *pattern = @"(https?:\\/\\/(?:www\\.|(?!www))[^\\s\\.]+\\.[^\\s]{2,}|www\\.[^\\s]+\\.[^\\s]{2,})";
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern
+      options:NSRegularExpressionCaseInsensitive error:&error];
+  
     NSString *plainText = text.string;
     
-    NSArray *matches = [detector matchesInString:plainText
-                                         options:0
-                                           range:NSMakeRange(0, text.length)];
-    
+    NSArray *matches = [regex matchesInString:plainText options:0 range:NSMakeRange(0, text.length)];
+  
     // Add a range entry for every url we found
     for (NSTextCheckingResult *match in matches)
     {
@@ -483,13 +483,10 @@ NSString * const KILabelLinkKey = @"link";
         
         if (![self ignoreMatch:realURL])
         {
-            if ([match resultType] == NSTextCheckingTypeLink)
-            {
-                [rangesForURLs addObject:@{KILabelLinkTypeKey : @(KILinkTypeURL),
-                                           KILabelRangeKey : [NSValue valueWithRange:matchRange],
-                                           KILabelLinkKey : realURL,
-                                        }];
-            }
+            [rangesForURLs addObject:@{KILabelLinkTypeKey : @(KILinkTypeURL),
+                                       KILabelRangeKey : [NSValue valueWithRange:matchRange],
+                                       KILabelLinkKey : realURL,
+                                    }];
         }
     }
     

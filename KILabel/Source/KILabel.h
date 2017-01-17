@@ -46,6 +46,11 @@ typedef NS_ENUM(NSUInteger, KILinkType)
      *  URLs, http etc
      */
     KILinkTypeURL,
+  
+//    /**
+//     *  Email
+//     */
+//    KILinkTypeEmail,
 };
 
 /**
@@ -72,7 +77,12 @@ typedef NS_OPTIONS(NSUInteger, KILinkTypeOption)
      *  Specifies to include KILinkTypeURL links
      */
     KILinkTypeOptionURL = 1 << KILinkTypeURL,
-    
+  
+//    /**
+//     *  Specifies to include KILinkTypeEmail
+//     */
+//    KILinkTypeOptionEmail = 1 << KILinkTypeEmail,
+  
     /**
      *  Convenience contstant to include all link types
      */
