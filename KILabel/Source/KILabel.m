@@ -393,6 +393,11 @@ NSString * const KILabelLinkKey = @"link";
     [rangesForLinks addObjectsFromArray:[self getRangesForURLs:self.attributedText]];
   }
   
+  if (self.linkDetectionTypes & KILinkTypeOptionEmail)
+  {
+    [rangesForLinks addObjectsFromArray:[self getRangesForEmails:text.string]];
+  }
+  
   return rangesForLinks;
 }
 
@@ -465,17 +470,13 @@ NSString * const KILabelLinkKey = @"link";
 
 - (NSArray *)getRangesForURLs:(NSAttributedString *)text
 {
-    NSMutableArray *rangesForURLs = [[NSMutableArray alloc] init];;
+    NSMutableArray *rangesForURLs = [[NSMutableArray alloc] init];
   
     // URL Pattern
     NSError *error = nil;
-    NSString *pattern = @"(https?:\\/\\/(?:www\\.|(?!www))[^\\s\\.]+\\.[^\\s]{2,}|www\\.[^\\s]+\\.[^\\s]{2,})";
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern
-      options:NSRegularExpressionCaseInsensitive error:&error];
-  
+    NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeLink error:&error];
     NSString *plainText = text.string;
-    
-    NSArray *matches = [regex matchesInString:plainText options:0 range:NSMakeRange(0, text.length)];
+    NSArray *matches = [detector matchesInString:plainText options:0 range:NSMakeRange(0, text.length)];
   
     // Add a range entry for every url we found
     for (NSTextCheckingResult *match in matches)
@@ -486,8 +487,8 @@ NSString * const KILabelLinkKey = @"link";
         NSString *realURL = [text attribute:NSLinkAttributeName atIndex:matchRange.location effectiveRange:nil];
         if (realURL == nil)
             realURL = [plainText substringWithRange:matchRange];
-        
-        if (![self ignoreMatch:realURL])
+      
+        if (![self ignoreMatch:realURL] && [self getRangesForEmails:realURL].count == 0)
         {
             [rangesForURLs addObject:@{KILabelLinkTypeKey : @(KILinkTypeURL),
                                        KILabelRangeKey : [NSValue valueWithRange:matchRange],
@@ -497,6 +498,31 @@ NSString * const KILabelLinkKey = @"link";
     }
     
     return rangesForURLs;
+}
+
+- (NSArray *)getRangesForEmails:(NSString *)text {
+  NSMutableArray *rangeForEmails = [[NSMutableArray alloc] init];
+  
+  // Email pattern
+  NSError *error = nil;
+  NSString *emailPattern = @"[a-z0-9._-]+@[\\d\\w]+\\.[\\w]{2,64}";
+  NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:emailPattern options:NSRegularExpressionCaseInsensitive error:&error];
+  
+  NSArray *matches = [regex matchesInString:text options:0 range:NSMakeRange(0, text.length)];
+  
+  for (NSTextCheckingResult *match in matches) {
+    NSRange matchRange = [match range];
+    NSString *matchString = [text substringWithRange:matchRange];
+    
+    if (![self ignoreMatch:matchString]) {
+      [rangeForEmails addObject:@{ KILabelLinkTypeKey : @(KILinkTypeEmail),
+                                   KILabelRangeKey : [NSValue valueWithRange:matchRange],
+                                   KILabelLinkKey : matchString,
+                                 }];
+    }
+  }
+  
+  return rangeForEmails;
 }
 
 - (BOOL)ignoreMatch:(NSString*)string

@@ -189,6 +189,19 @@
     }
 }
 
+/**
+ *  Action method to demonstrate toggling of email highlighting and hit detection.
+ *
+ *  @param sender Switvh action is bound to
+ */
+
+- (IBAction)toggleDetectEmails:(UISwitch *)sender {
+  if (sender.isOn) {
+    self.label.linkDetectionTypes |= KILinkTypeOptionEmail;
+  } else {
+    self.label.linkDetectionTypes ^= KILinkTypeOptionEmail;
+  }
+}
 
 #pragma mark - Helper methods
 

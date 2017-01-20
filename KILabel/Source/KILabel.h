@@ -41,16 +41,16 @@ typedef NS_ENUM(NSUInteger, KILinkType)
      *  Hashtags starting with "#" token
      */
     KILinkTypeHashtag,
-    
+  
+    /**
+     *  Email
+     */
+    KILinkTypeEmail,
+  
     /**
      *  URLs, http etc
      */
     KILinkTypeURL,
-  
-//    /**
-//     *  Email
-//     */
-//    KILinkTypeEmail,
 };
 
 /**
@@ -72,16 +72,16 @@ typedef NS_OPTIONS(NSUInteger, KILinkTypeOption)
      *  Specifies to include KILinkTypeHashtag links
      */
     KILinkTypeOptionHashtag = 1 << KILinkTypeHashtag,
-    
+  
+    /**
+     *  Specifies to include KILinkTypeEmail
+     */
+    KILinkTypeOptionEmail = 1 << KILinkTypeEmail,
+  
     /**
      *  Specifies to include KILinkTypeURL links
      */
     KILinkTypeOptionURL = 1 << KILinkTypeURL,
-  
-//    /**
-//     *  Specifies to include KILinkTypeEmail
-//     */
-//    KILinkTypeOptionEmail = 1 << KILinkTypeEmail,
   
     /**
      *  Convenience contstant to include all link types
