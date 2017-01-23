@@ -76,6 +76,10 @@
         // Open URLs
         [self attemptOpenURL:[NSURL URLWithString:string]];
     };
+  
+  _label.emailLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
+    NSLog(@"%@", string);
+  };
 }
 
 #pragma mark - Action Targets

@@ -194,6 +194,11 @@ IB_DESIGNABLE
 @property (nullable, nonatomic, copy) KILinkTapHandler urlLinkTapHandler;
 
 /**
+ * Callback block for KILinkTypeEmail link tap.
+ */
+@property (nullable, nonatomic, copy) KILinkTapHandler emailLinkTapHandler;
+
+/**
  * Callback block for Label tap.
  */
 @property (nullable, nonatomic, copy) KITapHandler labelTapHandler;

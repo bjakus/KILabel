@@ -308,7 +308,7 @@ NSString * const KILabelLinkKey = @"link";
     // Do nothing
   }
   else {
-    self.linkRanges = nil;
+    self.linkRanges = @[];
   }
   
   if (_textStorage)
@@ -755,6 +755,13 @@ NSString * const KILabelLinkKey = @"link";
       if (_urlLinkTapHandler)
       {
         _urlLinkTapHandler(self, string, range);
+      }
+      break;
+      
+    case KILinkTypeEmail:
+      if (_emailLinkTapHandler)
+      {
+        _emailLinkTapHandler(self, string, range);
       }
       break;
   }
