@@ -223,7 +223,9 @@ NSString * const KILabelLinkKey = @"link";
   {
     text = @"";
   }
-  
+    if (@available(iOS 12.0, *)) {
+        [self invalidateIntrinsicContentSize];
+    }
   NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text attributes:[self attributesFromProperties]];
   [self updateTextStoreWithAttributedString:attributedText];
 }
@@ -232,7 +234,9 @@ NSString * const KILabelLinkKey = @"link";
 {
   // Pass the text to the super class first
   [super setAttributedText:attributedText];
-  
+    if (@available(iOS 12.0, *)) {
+        [self invalidateIntrinsicContentSize];
+    }
   [self updateTextStoreWithAttributedString:attributedText];
 }
 
@@ -487,6 +491,10 @@ NSString * const KILabelLinkKey = @"link";
         NSString *realURL = [text attribute:NSLinkAttributeName atIndex:matchRange.location effectiveRange:nil];
         if (realURL == nil)
             realURL = [plainText substringWithRange:matchRange];
+        
+        if (![realURL isKindOfClass:[NSString class]]) {
+            realURL = realURL.description;
+        }
       
         if (![self ignoreMatch:realURL] && [self getRangesForEmails:realURL].count == 0)
         {
